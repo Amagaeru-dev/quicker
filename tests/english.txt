@@ -1,4 +1,0 @@
-This text is sample.
-Use this text when do test trans.py.
-
-
