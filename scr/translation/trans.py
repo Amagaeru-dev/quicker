@@ -9,18 +9,21 @@ import sys
 """
 
 
-def tarns(text, lang="-ja"):
+def trans(text, lang="-ja"):
     """googletransを使って翻訳をする
     例：
     >>>trans(Hello, -ja)
     こんにちは
     """
-    # 'lang'から'-'を取り除く
-    # コマンドのオプションの記法に対応させるため
-    lang = lang.strip("-")
+    if lang in '-':
+        # 'lang'から'-'を取り除く
+        # # コマンドのオプションの記法に対応させるため
+        lang = lang.strip("-")
+    
     trans = Translator()
-    # 翻訳をする メソッドチェーンでよいかどうかはまた考える。
-    return trans.translate(text, dest=lang).text
+    # 翻訳をする
+    trs_text = trans.translate(text, dest=lang).text
+    return trs_text
 
 
 def input_stdin(lang):
@@ -37,11 +40,9 @@ def input_stdin(lang):
         # 翻訳をする メソッドチェーンでよいかどうかはまた考える。
         return trans.translate(text, dest=lang).text
 
-    trs_lines = ''
+    trs_lines = ""
 
     for line in sys.stdin.readlines():
         trs_lines += inner_trans(line, lang=lang)
-        
-    return trs_lines             
 
-
+    return trs_lines
