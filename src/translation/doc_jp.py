@@ -11,4 +11,3 @@ def trans_doc(func, lang):
     doc = func.__doc__
     trs_doc = trans.trans(doc, lang=lang)
     return trs_doc
-

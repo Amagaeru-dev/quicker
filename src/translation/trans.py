@@ -15,11 +15,15 @@ def trans(text, lang="-ja"):
     >>>trans(Hello, -ja)
     こんにちは
     """
-    if lang in '-':
-        # 'lang'から'-'を取り除く
-        # # コマンドのオプションの記法に対応させるため
-        lang = lang.strip("-")
+    if not lang:
+        raise ValueError("翻訳先の言語が指定されていません。")
+
     
+    if lang in "-":
+    # 'lang'から'-'を取り除く
+    # # コマンドのオプションの記法に対応させるため
+    lang = lang.strip("-")
+
     trans = Translator()
     # 翻訳をする
     trs_text = trans.translate(text, dest=lang).text
