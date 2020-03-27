@@ -4,46 +4,37 @@
 from googletrans import Translator
 import sys
 
-"""翻訳をするための単純なAPIを提供するモジュール
-'googletrans'を使っているから、急に使えなくなるかもしれない。
+"""This module is modules to provide simple APi
+This module can't use Because use googletrans.
+This module may not be usable because it depends on googletrans.
 """
 
 
 def trans(text, lang="-ja"):
-    """googletransを使って翻訳をする
+    """Translation use to 'googletrans'
     例：
-    >>>trans(Hello, -ja)
+    >>>trans("Hello", -ja)
     こんにちは
     """
     if not lang:
-        raise ValueError("翻訳先の言語が指定されていません。")
+        raise ValueError("Destination language not specified.")
 
     if not text:
-        raise ValueError("翻訳するテキストがありません。")
+        raise ValueError("No strings to translate")
 
     if lang in "-":
-        # 'lang'から'-'を取り除く
-        # コマンドのオプションの記法に対応させるため
+        # remove "-" from lang
+        # To respond to command input
         lang = lang.strip("-")
 
     trans = Translator()
-    # 翻訳をする
+    # Do translation
     trs_text = trans.translate(text, dest=lang).text
     return trs_text
 
-# 他の関数でもtrnas()を使えるようにする
+
+# # For use in other functions
 trans_func = trans
 
 
-def trans_stdin(lang):
-    """標準入力を`trans()`に渡す
-    TODO:外部の関数を呼び出せるようにする。
-    """
-    global trans_func
 
-    trs_lines = ""
-
-    for line in sys.stdin.readlines():
-        trs_lines += trans_func(line, lang=lang)
-
-    return trs_lines
